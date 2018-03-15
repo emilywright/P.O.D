@@ -6,86 +6,178 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>592</width>
+    <height>302</height>
    </rect>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>600</width>
+    <height>600</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>true</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTextEdit" name="price_box">
+   <widget class="QPushButton" name="light_on_button">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>40</y>
-      <width>140</width>
-      <height>140</height>
+      <x>20</x>
+      <y>120</y>
+      <width>150</width>
+      <height>46</height>
      </rect>
     </property>
+    <property name="text">
+     <string>LIGHT ON</string>
+    </property>
    </widget>
-   <widget class="QSpinBox" name="tax_rate">
+   <widget class="QPushButton" name="start_pumping_button">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>230</y>
+      <x>310</x>
+      <y>120</y>
+      <width>150</width>
+      <height>46</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>START</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="pump_run_time">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>130</y>
       <width>51</width>
       <height>31</height>
      </rect>
     </property>
-    <property name="value">
-     <number>20</number>
-    </property>
    </widget>
-   <widget class="QPushButton" name="calc_tax_button">
+   <widget class="QLabel" name="water_run_time_label">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>320</y>
-      <width>150</width>
-      <height>46</height>
+      <x>490</x>
+      <y>100</y>
+      <width>61</width>
+      <height>25</height>
      </rect>
     </property>
     <property name="text">
-     <string>Calculate Tax</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Run Time:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="results_window">
+   <widget class="QSpinBox" name="pump_delay_time">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>400</y>
-      <width>140</width>
-      <height>140</height>
+      <x>190</x>
+      <y>240</y>
+      <width>51</width>
+      <height>31</height>
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="light_button">
+   <widget class="QLabel" name="pump_delay_time_label">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>210</y>
+      <width>71</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Delay Time:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>10</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/newPrefix/podLogo.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="light_on_off_button">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>220</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>LIGHT HARD ON/OFF</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
       <x>310</x>
-      <y>70</y>
+      <y>80</y>
+      <width>131</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Water Pump:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>80</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;Lights:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="light_off_button">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>170</y>
       <width>150</width>
       <height>46</height>
      </rect>
     </property>
     <property name="text">
-     <string>Light hard on</string>
+     <string>LIGHT OFF</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stop_pumping_button">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>170</y>
+      <width>150</width>
+      <height>46</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>STOP</string>
     </property>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>38</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="podImages/pod.qrc"/>
+ </resources>
  <connections/>
 </ui>
