@@ -17,6 +17,14 @@ class viewExperiment(QtWidgets.QWidget):
         self.setStyleSheet("background-color:#FFFFFF");
         #98FB98
 
+        # Create new experiment labels
+        self.createNewLabel = QtWidgets.QLabel(self)
+        self.createNewLabel.setText('View Experiments')
+        self.createNewLabel.move(300, 15)
+        self.createFont = QtGui.QFont("Times", 24, QtGui.QFont.Bold)
+        self.createNewLabel.setFont(self.createFont)
+        self.createNewLabel.setStyleSheet("background-color:#FFFFFF")
+
         # labels
         # Background label
         self.menuLabel = QtWidgets.QLabel(self)
@@ -29,5 +37,15 @@ class viewExperiment(QtWidgets.QWidget):
         self.podLogo.setPixmap(self.adjustedPixmap)
         self.podLogo.setStyleSheet("background-color:#98FB98")
         self.podLogo.move(15, 10)
+
+        self.tableWidget = QtWidgets.QTableWidget(self)
+        # set row count
+        self.tableWidget.setRowCount(6)
+        # set column count
+        self.tableWidget.setColumnCount(6)
+        self.tableWidget.setHorizontalHeaderLabels(('Experiment Name', 'Group Name', 'POD Number', 'Start Time', 'End Time', 'CSV File'))
+        self.tableWidget.move(10, 75)
+        self.tableWidget.resize(625, 200)
+
 
         self.show()
