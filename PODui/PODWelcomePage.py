@@ -63,7 +63,6 @@ class Window(QtWidgets.QWidget):
         self.viewExperimentButton.setFont(self.buttonFont)
         self.viewExperimentButton.clicked.connect(self.openViewWindow)
 
-
         self.createButton = QtWidgets.QPushButton(self)
         self.createButton.setText('Create New \nExperiment')
         self.createButton.move(15, 150)
@@ -106,7 +105,8 @@ class Window(QtWidgets.QWidget):
         self.dialog = about()
         self.dialog.show()
 
-
+    def showSelf(self):
+        self.show()
 
 app = QtWidgets.QApplication(sys.argv)
 a_window = Window()
