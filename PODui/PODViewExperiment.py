@@ -39,6 +39,17 @@ class viewExperiment(QtWidgets.QWidget):
         self.podLogo.setStyleSheet("background-color:#98FB98")
         self.podLogo.move(15, 10)
 
+        # Button font
+        self.buttonFont = QtGui.QFont("Helvetica", 12)
+
+        self.exitButton = QtWidgets.QPushButton(self)
+        self.exitButton.setText('Exit')
+        self.exitButton.move(70, 300)
+        self.exitButton.resize(100, 40);
+        self.exitButton.setStyleSheet("background-color:#FFFFFF")
+        self.exitButton.setFont(self.buttonFont)
+        self.exitButton.clicked.connect(self.close)
+
         self.currDir = 0
         # print(os.getcwd() + "/currentExperiments")
         self.directory = os.fsencode(os.getcwd() + "/currentExperiments")
@@ -51,10 +62,10 @@ class viewExperiment(QtWidgets.QWidget):
         # set row count
         self.tableWidget.setRowCount(self.number_files)
         # set column count
-        self.tableWidget.setColumnCount(8)
-        self.tableWidget.setHorizontalHeaderLabels(('Experiment Name', 'Group Name', 'POD Number', 'Start Date', 'Start Time', 'End Date', 'End Time', 'CSV File'))
+        self.tableWidget.setColumnCount(13)
+        self.tableWidget.setHorizontalHeaderLabels(('Experiment Name', 'Start Date', 'Start Time', 'End Date', 'End Time', 'Water Delay', 'Water Duration', 'Light Delay', 'Light Error', 'Temp Delay', 'Temp Error', 'Photo Delay', 'CSV File'))
         self.tableWidget.move(10, 75)
-        self.tableWidget.resize(625, 150)
+        self.tableWidget.resize(625, 275)
         self.tableWidget.setColumnWidth(0, 150)
         # # simple version for working with CWD
         # print(len([self.name for self.name in os.listdir('.') if os.path.isfile(self.name)]))
@@ -67,14 +78,16 @@ class viewExperiment(QtWidgets.QWidget):
                   self.reader = csv.reader(self.fileInput)
                   self.fileContents = list(self.reader)
                   # print(str(self.fileContents[0]).strip('[]'))
-                  self.tableWidget.setItem(self.currDir, 0, QtWidgets.QTableWidgetItem(str(self.fileContents[0]).strip("[]").strip("''")))
-                  self.tableWidget.setItem(self.currDir, 1, QtWidgets.QTableWidgetItem(str(self.fileContents[1]).strip('[]').strip("''")))
-                  self.tableWidget.setItem(self.currDir, 2, QtWidgets.QTableWidgetItem(str(self.fileContents[2]).strip('[]').strip("''")))
-                  self.tableWidget.setItem(self.currDir, 3, QtWidgets.QTableWidgetItem(str(self.fileContents[5]).strip('[]').strip("''")))
-                  self.tableWidget.setItem(self.currDir, 4, QtWidgets.QTableWidgetItem(str(self.fileContents[6]).strip('[]').strip("''")))
-                  self.tableWidget.setItem(self.currDir, 5, QtWidgets.QTableWidgetItem(str(self.fileContents[7]).strip('[]').strip("''")))
-                  self.tableWidget.setItem(self.currDir, 6, QtWidgets.QTableWidgetItem(str(self.fileContents[8]).strip('[]').strip("''")))
-                  self.tableWidget.setItem(self.currDir, 7, QtWidgets.QTableWidgetItem(str(self.fileContents[9]).strip('[]').strip("''")))
+                  self.tableWidget.setItem(self.currDir, 5, QtWidgets.QTableWidgetItem(str(self.fileContents[3]).strip("[]").strip("''")))
+                  self.tableWidget.setItem(self.currDir, 6, QtWidgets.QTableWidgetItem(str(self.fileContents[4]).strip("[]").strip("''")))
+                  self.tableWidget.setItem(self.currDir, 7, QtWidgets.QTableWidgetItem(str(self.fileContents[5]).strip("[]").strip("''")))
+                  self.tableWidget.setItem(self.currDir, 8, QtWidgets.QTableWidgetItem(str(self.fileContents[6]).strip("[]").strip("''")))
+                  self.tableWidget.setItem(self.currDir, 9, QtWidgets.QTableWidgetItem(str(self.fileContents[7]).strip("[]").strip("''")))
+                  self.tableWidget.setItem(self.currDir, 10, QtWidgets.QTableWidgetItem(str(self.fileContents[8]).strip("[]").strip("''")))
+                  self.tableWidget.setItem(self.currDir, 11, QtWidgets.QTableWidgetItem(str(self.fileContents[9]).strip("[]").strip("''")))
+                  # self.tableWidget.setItem(self.currDir, 12, QtWidgets.QTableWidgetItem(str(self.fileContents[11]).strip("[]").strip("''")))
+                  self.tableWidget.setItem(self.currDir, 12, QtWidgets.QTableWidgetItem(str(self.fileContents[2]).strip("[]").strip("''")))
+
                   self.currDir = self.currDir + 1
 
         self.show()

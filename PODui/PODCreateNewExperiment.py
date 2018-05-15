@@ -3,6 +3,8 @@ import os
 import csv
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PODAddGroup import addGroup
+import calendar
+import time
 # from PyQt5.QtWidgets import QLineEdit
 # from PODWelcomePage import Window
 
@@ -67,16 +69,16 @@ class createNew(QtWidgets.QWidget):
         # self.groupNameTextBox.resize(150,25)
         # self.groupNameTextBox.setStyleSheet("background-color:#FFFFFF")
 
-        # POD Number
-        self.PODNumLabel = QtWidgets.QLabel(self)
-        self.PODNumLabel.setText('P.O.D. Number:')
-        self.PODNumLabel.move(15, 120)
-        self.PODNumLabel.setFont(self.inputFont)
-        # POD number textbox
-        self.PODNumberTextBox = QtWidgets.QLineEdit(self)
-        self.PODNumberTextBox.move(150, 120)
-        self.PODNumberTextBox.resize(150,25)
-        self.PODNumberTextBox.setStyleSheet("background-color:#FFFFFF")
+        # # POD Number
+        # self.PODNumLabel = QtWidgets.QLabel(self)
+        # self.PODNumLabel.setText('P.O.D. Number:')
+        # self.PODNumLabel.move(15, 120)
+        # self.PODNumLabel.setFont(self.inputFont)
+        # # POD number textbox
+        # self.PODNumberTextBox = QtWidgets.QLineEdit(self)
+        # self.PODNumberTextBox.move(150, 120)
+        # self.PODNumberTextBox.resize(150,25)
+        # self.PODNumberTextBox.setStyleSheet("background-color:#FFFFFF")
 
         # Start Experiment Time
         self.startTimeLabel = QtWidgets.QLabel(self)
@@ -90,14 +92,14 @@ class createNew(QtWidgets.QWidget):
         self.endTimeLabel.setFont(self.inputFont)
 
         # Pictures per day label
-        self.endTimeLabel = QtWidgets.QLabel(self)
-        self.endTimeLabel.setText('Pictures per day:')
-        self.endTimeLabel.move(15, 210)
-        self.endTimeLabel.setFont(self.inputFont)
+        self.pictureLabel = QtWidgets.QLabel(self)
+        self.pictureLabel.setText('Pictures per day:')
+        self.pictureLabel.move(15, 180)
+        self.pictureLabel.setFont(self.inputFont)
 
         # Pictures per day
-        self.picuresPerDay = QtWidgets.QSpinBox(self)
-        self.picuresPerDay.move(140, 210)
+        self.picturesPerDay = QtWidgets.QSpinBox(self)
+        self.picturesPerDay.move(140, 180)
 
         # Button font
         self.buttonFont = QtGui.QFont("Helvetica", 12)
@@ -147,24 +149,24 @@ class createNew(QtWidgets.QWidget):
         # Water Cycle label
         self.waterCycleLabel = QtWidgets.QLabel(self)
         self.waterCycleLabel.setText('Water Cycle (Hours):')
-        self.waterCycleLabel.move(15, 150)
+        self.waterCycleLabel.move(15, 120)
         self.waterCycleLabel.setFont(self.inputFont)
 
         # Watering Time label
         self.waterTimeLabel = QtWidgets.QLabel(self)
         self.waterTimeLabel.setText('Watering Time (Seconds):')
-        self.waterTimeLabel.move(15, 180)
+        self.waterTimeLabel.move(15, 150)
         self.waterTimeLabel.setFont(self.inputFont)
 
         # Water number textbox
         self.waterTime = QtWidgets.QTimeEdit(self)
         self.waterTime.setDisplayFormat('hh')
-        self.waterTime.move(200, 150)
+        self.waterTime.move(200, 120)
 
         # Water number textbox
         self.wateringTime = QtWidgets.QTimeEdit(self)
         self.wateringTime.setDisplayFormat('ss')
-        self.wateringTime.move(200, 180)
+        self.wateringTime.move(200, 150)
 
         # light label
         self.waterCycleLabel = QtWidgets.QLabel(self)
@@ -177,6 +179,39 @@ class createNew(QtWidgets.QWidget):
         self.csvFileTextBox.resize(180, 25)
         self.csvFileTextBox.setStyleSheet("background-color:#D3D3D3")
         self.csvFileTextBox.setDisabled(True)
+
+        # Light error label
+        self.lightErrorLabel = QtWidgets.QLabel(self)
+        self.lightErrorLabel.setText('Light Error:')
+        self.lightErrorLabel.move(320, 210)
+        self.lightErrorLabel.setFont(self.inputFont)
+
+        # Light error
+        self.lightError = QtWidgets.QSpinBox(self)
+        self.lightError.setMaximum(1000)
+        self.lightError.move(410, 210)
+
+        # Light error label
+        self.tempErrorLabel = QtWidgets.QLabel(self)
+        self.tempErrorLabel.setText('Temperature Error:')
+        self.tempErrorLabel.move(15, 240)
+        self.tempErrorLabel.setFont(self.inputFont)
+
+        # Temperature Cycle label
+        self.tempCycleLabel = QtWidgets.QLabel(self)
+        self.tempCycleLabel.setText('Temperature Cycle (Min):')
+        self.tempCycleLabel.move(15, 210)
+        self.tempCycleLabel.setFont(self.inputFont)
+
+        # temp error
+        self.tempCycle = QtWidgets.QSpinBox(self)
+        self.tempCycle.setMaximum(1000)
+        self.tempCycle.move(200, 210)
+
+        # temp error
+        self.tempError = QtWidgets.QSpinBox(self)
+        self.tempError.setMaximum(1000)
+        self.tempError.move(165, 240)
 
         self.browseButton = QtWidgets.QPushButton(self)
         self.browseButton.setText('Browse')
@@ -202,13 +237,27 @@ class createNew(QtWidgets.QWidget):
 
     def createExperiment(self):
         with open("currentExperiments/" + self.experimentNameTextBox.text() + ".csv", 'w') as self.f:
-            self.f.write(self.experimentNameTextBox.text() + "\n")
-            self.f.write("  \n")
-            self.f.write(self.PODNumberTextBox.text() + "\n")
-            self.f.write(self.waterTime.time().toString("hh") + "\n")
-            self.f.write(self.wateringTime.time().toString("ss") + "\n")
-            self.f.write(self.startDate.date().toString("MM d yyyy") + "\n")
-            self.f.write(self.startTime.time().toString("hh:mm AP") + "\n")
-            self.f.write(self.endDate.date().toString("MM d yyyy") + "\n")
-            self.f.write(self.endTime.time().toString("hh:mm AP") + "\n")
-            self.f.write(self.file)
+            # start time
+            self.f.write("exp_start "+ str(calendar.timegm(time.strptime(self.endDate.date().toString("MMM d, yyyy") + ' @ ' + self.endTime.time().toString("hh:mm:ss") + ' UTC', '%b %d, %Y @ %H:%M:%S UTC'))) + "\n")
+            # print(calendar.timegm(time.strptime(self.startDate.date().toString("MMM d, yyyy") + ' @ ' + self.startTime.time().toString("hh:mm:ss") + ' UTC', '%b %d, %Y @ %H:%M:%S UTC')))
+            # print(calendar.timegm(time.strptime(self.endDate.date().toString("MMM d, yyyy") + ' @ ' + self.endTime.time().toString("hh:mm:ss") + ' UTC', '%b %d, %Y @ %H:%M:%S UTC')))
+            # experiment duration
+            self.f.write("exp_duration " + str(calendar.timegm(time.strptime(self.endDate.date().toString("MMM d, yyyy") + ' @ ' + self.endTime.time().toString("hh:mm:ss") + ' UTC', '%b %d, %Y @ %H:%M:%S UTC')) - calendar.timegm(time.strptime(self.startDate.date().toString("MMM d, yyyy") + ' @ ' + self.startTime.time().toString("hh:mm:ss") + ' UTC', '%b %d, %Y @ %H:%M:%S UTC'))))
+            self.f.write('\n')
+            # csv file
+            self.f.write("csv_filename " + self.file)
+            self.f.write('\n')
+            # water delay
+            self.f.write("water_delay " + self.waterTime.time().toString("hh") + "\n")
+            # water duration
+            self.f.write("water_duration " + self.wateringTime.time().toString("ss") + "\n")
+            # light delay
+            self.f.write("lightsensor_delay " + "2\n")
+            # light error
+            self.f.write("lightsensor_error " + str(self.lightError.value()) + "\n")
+            # temp delay
+            self.f.write("tempsensor_delay " + str(self.tempCycle.value()) + "\n")
+            # temp error
+            self.f.write("tempsensor_error " + str(self.tempError.value()) + "\n")
+            # photo delay
+            self.f.write("picture_delay " + str(int(24 / self.picturesPerDay.value())))

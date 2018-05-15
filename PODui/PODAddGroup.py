@@ -137,6 +137,7 @@ class addGroup(QtWidgets.QWidget):
     #     self.exitButton.clicked.connect(self.close)
     #
     #     self.show()
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setWindowTitle("P.O.D.")
@@ -145,49 +146,21 @@ class addGroup(QtWidgets.QWidget):
         self.setGeometry(325, 100, 650, 400)
 
         self.setStyleSheet("background-color:white");
-         # labels
-        # Background label
-        self.menuLabel = QtWidgets.QLabel(self)
-        self.menuLabel.setGeometry(QtCore.QRect(0, 0, 175, 70))
-        self.menuLabel.setStyleSheet("background-color:#98FB98")
-
-        self.podbackLabel = QtWidgets.QLabel(self)
-        self.podbackLabel.setGeometry(QtCore.QRect(175, 0, 600, 70))
-        self.podbackLabel.setStyleSheet("background-color:#FFFFFF")
-        # Image logo
-        self.podLogo = QtWidgets.QLabel(self)
-        self.originalpixmap = QtGui.QPixmap('podLogo1.png')
-        self.adjustedPixmap = self.originalpixmap.scaled(150, 150, QtCore.Qt.KeepAspectRatio, QtCore.Qt.FastTransformation)
-        self.podLogo.setPixmap(self.adjustedPixmap)
-        self.podLogo.setStyleSheet("background-color:#98FB98")
-        self.podLogo.move(15, 10)
-
-        # Add Group labels
-        self.createNewLabel = QtWidgets.QLabel(self)
-        self.createNewLabel.setText('Add Group')
-        self.createNewLabel.move(320, 15)
-        self.createFont = QtGui.QFont("Times", 24, QtGui.QFont.Bold)
-        self.createNewLabel.setFont(self.createFont)
-        self.createNewLabel.setStyleSheet("background-color:#FFFFFF")
-
 
         self.label=InitialCard("Group", self)
-        self.lineEdit=QtWidgets.QLineEdit("Create a Group Here!!")
+        self.lineEdit=QtWidgets.QLineEdit("Create a New Group Here")
         self.lineEdit.selectAll()
         self.scrollArea = QtWidgets.QScrollArea()
         self.scrollArea.setWidgetResizable(True)
         self.scrollContent = CardsDropWidget(self.scrollArea)
         self.scrollArea.setMinimumWidth(150)
+        self.scrollArea.setWidget(self.scrollContent)
         self.dialogueLayout=QtWidgets.QHBoxLayout()
         self.labelLayout=QtWidgets.QVBoxLayout()
-        self.newLayout=QtWidgets.QVBoxLayout()
         self.labelLayout.addWidget(self.label)
         self.labelLayout.addWidget(self.lineEdit)
-        self.newLayout.addWidget(self.podLogo)
-        self.newLayout.addWidget(self.createNewLabel)
         self.labelLayout.addStretch()
         self.dialogueLayout.addWidget(self.scrollArea)
-        self.dialogueLayout.addLayout(self.newLayout)
         self.dialogueLayout.addLayout(self.labelLayout)
         self.setLayout(self.dialogueLayout)
         self.setMinimumSize(300, 150)
