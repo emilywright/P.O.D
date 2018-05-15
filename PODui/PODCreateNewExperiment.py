@@ -2,7 +2,8 @@ import sys
 import os
 import csv
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QLineEdit
+from PODAddGroup import addGroup
+# from PyQt5.QtWidgets import QLineEdit
 # from PODWelcomePage import Window
 
 class createNew(QtWidgets.QWidget):
@@ -56,24 +57,24 @@ class createNew(QtWidgets.QWidget):
         self.experimentNameTextBox.setStyleSheet("background-color:#FFFFFF")
 
         # Group name
-        self.groupNameLabel = QtWidgets.QLabel(self)
-        self.groupNameLabel.setText('Group Name:')
-        self.groupNameLabel.move(15, 120)
-        self.groupNameLabel.setFont(self.inputFont)
-        # group name textbox
-        self.groupNameTextBox = QtWidgets.QLineEdit(self)
-        self.groupNameTextBox.move(150, 120)
-        self.groupNameTextBox.resize(150,25)
-        self.groupNameTextBox.setStyleSheet("background-color:#FFFFFF")
+        # self.groupNameLabel = QtWidgets.QLabel(self)
+        # self.groupNameLabel.setText('Group Name:')
+        # self.groupNameLabel.move(15, 120)
+        # self.groupNameLabel.setFont(self.inputFont)
+        # # group name textbox
+        # self.groupNameTextBox = QtWidgets.QLineEdit(self)
+        # self.groupNameTextBox.move(150, 120)
+        # self.groupNameTextBox.resize(150,25)
+        # self.groupNameTextBox.setStyleSheet("background-color:#FFFFFF")
 
         # POD Number
         self.PODNumLabel = QtWidgets.QLabel(self)
         self.PODNumLabel.setText('P.O.D. Number:')
-        self.PODNumLabel.move(15, 150)
+        self.PODNumLabel.move(15, 120)
         self.PODNumLabel.setFont(self.inputFont)
         # POD number textbox
         self.PODNumberTextBox = QtWidgets.QLineEdit(self)
-        self.PODNumberTextBox.move(150, 150)
+        self.PODNumberTextBox.move(150, 120)
         self.PODNumberTextBox.resize(150,25)
         self.PODNumberTextBox.setStyleSheet("background-color:#FFFFFF")
 
@@ -88,25 +89,42 @@ class createNew(QtWidgets.QWidget):
         self.endTimeLabel.move(320, 120)
         self.endTimeLabel.setFont(self.inputFont)
 
+        # Pictures per day label
+        self.endTimeLabel = QtWidgets.QLabel(self)
+        self.endTimeLabel.setText('Pictures per day:')
+        self.endTimeLabel.move(15, 210)
+        self.endTimeLabel.setFont(self.inputFont)
+
+        # Pictures per day
+        self.picuresPerDay = QtWidgets.QSpinBox(self)
+        self.picuresPerDay.move(140, 210)
+
         # Button font
         self.buttonFont = QtGui.QFont("Helvetica", 12)
 
         self.exitButton = QtWidgets.QPushButton(self)
         self.exitButton.setText('Exit')
-        self.exitButton.move(70, 290)
+        self.exitButton.move(70, 300)
         self.exitButton.resize(100, 40);
         self.exitButton.setStyleSheet("background-color:#FFFFFF")
         self.exitButton.setFont(self.buttonFont)
         self.exitButton.clicked.connect(self.close)
 
         self.createButton = QtWidgets.QPushButton(self)
+        self.createButton.setText('Add Group')
+        self.createButton.move(270, 300)
+        self.createButton.resize(100, 40)
+        self.createButton.setStyleSheet("background-color:#FFFFFF")
+        self.createButton.setFont(self.buttonFont)
+        self.createButton.clicked.connect(self.openAddGroup)
+
+        self.createButton = QtWidgets.QPushButton(self)
         self.createButton.setText('Create')
-        self.createButton.move(480, 290)
+        self.createButton.move(480, 300)
         self.createButton.resize(100, 40);
         self.createButton.setStyleSheet("background-color:#FFFFFF")
         self.createButton.setFont(self.buttonFont)
         self.createButton.clicked.connect(self.createExperiment)
-
 
         self.startDate = QtWidgets.QDateEdit(self)
         self.startDate.setDisplayFormat("MMM d yyyy")
@@ -129,24 +147,24 @@ class createNew(QtWidgets.QWidget):
         # Water Cycle label
         self.waterCycleLabel = QtWidgets.QLabel(self)
         self.waterCycleLabel.setText('Water Cycle (Hours):')
-        self.waterCycleLabel.move(15, 180)
+        self.waterCycleLabel.move(15, 150)
         self.waterCycleLabel.setFont(self.inputFont)
 
         # Watering Time label
         self.waterTimeLabel = QtWidgets.QLabel(self)
         self.waterTimeLabel.setText('Watering Time (Seconds):')
-        self.waterTimeLabel.move(15, 210)
+        self.waterTimeLabel.move(15, 180)
         self.waterTimeLabel.setFont(self.inputFont)
 
         # Water number textbox
         self.waterTime = QtWidgets.QTimeEdit(self)
         self.waterTime.setDisplayFormat('hh')
-        self.waterTime.move(200, 180)
+        self.waterTime.move(200, 150)
 
         # Water number textbox
         self.wateringTime = QtWidgets.QTimeEdit(self)
         self.wateringTime.setDisplayFormat('ss')
-        self.wateringTime.move(200, 210)
+        self.wateringTime.move(200, 180)
 
         # light label
         self.waterCycleLabel = QtWidgets.QLabel(self)
@@ -170,6 +188,11 @@ class createNew(QtWidgets.QWidget):
 
         self.show()
 
+    def openAddGroup(self):
+        self.hide()
+        self.dialog = addGroup()
+        self.dialog.show()
+
     def openCSVFile(self):
         self.path, _ = QtWidgets.QFileDialog.getOpenFileName(self, 'Open CSV', os.getenv('HOME'), 'CSV(*.csv)')
         self.file = QtCore.QFileInfo(self.path).fileName()
@@ -178,9 +201,9 @@ class createNew(QtWidgets.QWidget):
         self.csvFileTextBox.setText(self.file)
 
     def createExperiment(self):
-        with open("currentExperiments/" + self.experimentNameTextBox.text() + ".txt", 'w') as self.f:
+        with open("currentExperiments/" + self.experimentNameTextBox.text() + ".csv", 'w') as self.f:
             self.f.write(self.experimentNameTextBox.text() + "\n")
-            self.f.write(self.groupNameTextBox.text() + "\n")
+            self.f.write("  \n")
             self.f.write(self.PODNumberTextBox.text() + "\n")
             self.f.write(self.waterTime.time().toString("hh") + "\n")
             self.f.write(self.wateringTime.time().toString("ss") + "\n")
